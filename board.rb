@@ -81,7 +81,7 @@ class Game
     @yaya.show
     puts "Draw bitches!" if @@victory == false
     puts "Try again ? Y/N"
-    choice = (gets.chomp).to_s
+    choice = (gets.chomp).to_s.capitalize
     if choice == "Y"
       @@victory = false
       @yaya = Board.new
@@ -152,7 +152,11 @@ class Board
   def set_case_value(choice, pmark, player)
 
     if is_playable?(@cases[choice-1])
-      @cases[choice-1].value = pmark
+      if pmark == "O"
+        @cases[choice-1].value = pmark.red
+      else
+        @cases[choice-1].value = pmark.green
+      end
     else
       puts "Taken ! Please try again !"
       choice = (gets.chomp).to_i
