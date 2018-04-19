@@ -5,12 +5,13 @@ class Player
 @@player = 0
 @@mark = ""
 
-  attr_accessor :pname, :pmark
+  attr_accessor :pname, :pmark, :ppoints
 
   def initialize
     @pname = ""
     @pmark = ""
     @@player += 1
+    @ppoints = 0
   end
 
   def infos
@@ -77,6 +78,7 @@ class Game
     end
     @board_game.show
     puts "Draw bitches!" if @@victory == false
+    puts "#{@p_one.pname} : #{@p_one.ppoints} VS #{@p_two.pname} : #{@p_two.ppoints}"
     puts "Try again ? Y/N"
     choice = (gets.chomp).to_s.capitalize
     if choice == "Y"
@@ -94,6 +96,7 @@ class Game
     @board_game.get_player_choice(@choice, player.pmark, player)
     if @board_game.victory(player)
       @@victory = true
+      player.ppoints += 1
     end
   end
 
