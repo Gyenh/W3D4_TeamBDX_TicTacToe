@@ -26,9 +26,9 @@ class Game
         break
       end
       break if i > 8
-      self.turn(@p_two)                                                                     # Appelle le tour du player 1
+      self.turn(@p_two)                                                                     # Appelle le tour du player 2
       i +=1
-      if @@victory                                                                          # Win du player 1, break de la loop si besoin et affiche la board finie
+      if @@victory                                                                          # Win du player 2, break de la loop si besoin et affiche la board finie
         puts "\nThere is a winner :"
         @board_game.show
         puts "\nGood game #{@p_two.pname} !"
