@@ -1,0 +1,12 @@
+GEM
+  specs:
+    color_text (0.0.3)
+
+PLATFORMS
+  ruby
+
+DEPENDENCIES
+  color_text
+
+BUNDLED WITH
+   1.16.1

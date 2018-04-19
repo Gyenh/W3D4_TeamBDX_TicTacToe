@@ -1,15 +1,16 @@
+require "color_text"
+
 class Player
 
 @@player = 0
 @@mark = ""
 
 
-  attr_accessor :pname, :pmark, :victory
+  attr_accessor :pname, :pmark
 
   def initialize
     @pname = ""
     @pmark = ""
-    @victory = false
     @@player += 1
   end
 
@@ -34,6 +35,8 @@ end
 
 class Game
 
+  @@victory = false
+
   def initialize
     #TO DO : créé 2 joueurs, créé un board
     puts "Welcome to the BDX Tic-Tac-Toe ! Have fun with our progZ !"
@@ -50,18 +53,43 @@ class Game
   def go
     # TO DO : lance la partie
     puts "Let's go !"
-    self.turn(@p_one)
-    self.turn(@p_two)
+    loop do
+      self.turn(@p_one)
+      if @@victory
+        puts "\nThere is a winner :"
+        @yaya.show
+        puts "\nGood game #{@p_one.pname} !"
+        puts "#{@p_two.pname}, U suck"
+        break
+      end
+      self.turn(@p_two)
+      if @@victory
+        puts "\nThere is a winner :"
+        @yaya.show
+        puts "\nGood game #{@p_two.pname} !"
+        puts "#{@p_one.pname}, U suck"
+        break
+      end
+    end
+
+    puts "Try again ? Y/N"
+    choice = (gets.chomp).to_s
+    if choice == "Y"
+      @@victory = false
+      @yaya = Board.new
+      self.go
+    end
 
   end
 
   def turn(player)
-
     puts "It's #{player.pname}'s turn!"
     @yaya.show
     @choice = (gets.chomp).to_i
     @yaya.get_player_choice(@choice, player.pmark, player)
-    @yaya.victory(player)
+    if @yaya.victory(player)
+      @@victory = true
+    end
   end
 
 end
@@ -136,32 +164,31 @@ class Board
   end
 
 
-
   def victory(player)
 
     if @cases[0].value == @cases[1].value && @cases[1].value == @cases[2].value
-      player.victory = true
+      return true
 
     elsif @cases[3].value == @cases[4].value && @cases[4].value == @cases[5].value
-      player.victory = true
+      return true
 
     elsif @cases[6].value == @cases[7].value && @cases[7].value == @cases[8].value
-      player.victory = true
+      return true
 
     elsif @cases[0].value == @cases[3].value && @cases[3].value == @cases[6].value
-      player.victory = true
+      return true
 
     elsif @cases[1].value == @cases[4].value && @cases[4].value == @cases[7].value
-      player.victory = true
+      return true
 
     elsif @cases[2].value == @cases[5].value && @cases[5].value == @cases[8].value
-      player.victory = true
+      return true
 
     elsif @cases[2].value == @cases[4].value && @cases[4].value == @cases[6].value
-      player.victory = true
+      return true
 
     elsif @cases[0].value == @cases[4].value && @cases[4].value == @cases[8].value
-      player.victory = true
+      return true
 
     end
   end
@@ -170,7 +197,4 @@ end
 
 game = Game.new
 
-loop do
-  game.go
-  break if @p_one.victory || @p_two.victory
-end
+game.go
