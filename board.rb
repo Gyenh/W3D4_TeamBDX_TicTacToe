@@ -1,3 +1,41 @@
+class Player
+
+@@player = 0
+
+  attr_accessor :pname, :pmark, :victory
+
+  def initialize()
+    @pname = ""
+    @pmark = ""
+    @victory = false
+    @@player += 1
+  end
+
+  def infos()
+    puts "\nPlease, put the player name :"
+    @pname = (gets.chomp).to_s
+    if @@player == 1
+      puts "\nWhich mark do you want ? X or O ?"
+      while @pmark != "X" && @pmark != "O" do
+         @pmark = (gets.chomp).to_s.capitalize
+      end
+    else
+      p_one[@pmark] == "X" ? @pmark = "O" : @pmark = "X"
+    end
+    puts "#{@pname} jouera avec la marque #{@pmark} !"
+  end
+
+
+
+end
+
+class Game
+
+
+
+
+
+end
 
 
 class BoardCase
@@ -19,8 +57,8 @@ class BoardCase
 end
 
 class Board
- 
-  attr_accessor :cases
+
+  attr_accessor :cases, :choice
 
   def initialize()
     bc_1 = BoardCase.new(1, "1")
@@ -57,6 +95,13 @@ class Board
     puts "     |     |     "
   end
 
+  def get_player_choice
+    puts "\nSelect your next position :"
+    @choice = (gets.chomp).to_i
+    self.set_case_value(@choice, @pmark)
+    self.show_board
+  end
+
   def set_case_value(c_number, pmark)
     if is_playable?(c_number)
       c_number.value = pmark
@@ -65,8 +110,27 @@ class Board
 
 end
 
+#
+# # Init du game
+# game = Game.new
+
 
 yaya = Board.new
 yaya.show_board()
-yaya.set_case_value()
+# yaya.set_case_value()
 p yaya.cases.class
+
+# Welcome !
+puts "Welcome to the BDX Tic-Tac-Toe ! Have fun with our progZ !"
+
+# Demande noms et Ajout des players dans le game
+
+# p_one = Player.new()
+# p_one.infos
+# p_two = Player.new()
+# p_two.infos
+# puts "Please, put the second player name :"
+# p_two = Player.new()
+#
+# puts p_one.info
+# puts p_two.info
