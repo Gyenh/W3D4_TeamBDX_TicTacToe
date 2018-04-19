@@ -30,8 +30,6 @@ class Player
     puts "#{@pname} jouera avec la marque #{@pmark} !"
   end
 
-
-
 end
 
 class Game
@@ -63,35 +61,7 @@ class Game
     @yaya.show
     @choice = (gets.chomp).to_i
     @yaya.get_player_choice(@choice, player.pmark, player)
-
-    if @cases[0].value == @cases[1].value && @cases[1].value == @cases[2].value
-      player.victory = true
-
-    elsif @cases[3].value == @cases[4].value && @cases[4].value == @cases[5].value
-      player.victory = true
-
-    elsif @cases[6].value == @cases[7].value && @cases[7].value == @cases[8].value
-      player.victory = true
-
-    elsif @cases[0].value == @cases[3].value && @cases[3].value == @cases[6].value
-      player.victory = true
-
-    elsif @cases[1].value == @cases[4].value && @cases[4].value == @cases[7].value
-      player.victory = true
-
-    elsif @cases[2].value == @cases[5].value && @cases[5].value == @cases[8].value
-      player.victory = true
-
-    elsif @cases[2].value == @cases[4].value && @cases[4].value == @cases[6].value
-      player.victory = true
-
-    elsif @cases[0].value == @cases[4].value && @cases[4].value == @cases[8].value
-      player.victory = true
-
-    end
-    #TO DO : affiche le plateau, demande au joueur il joue quoi,
-    # vérifie si un joueur a gagné,
-    # passe au joueur suivant si la partie n'est pas finie
+    @yaya.victory(player)
   end
 
 end
@@ -165,13 +135,42 @@ class Board
     end
   end
 
+
+
+  def victory(player)
+
+    if @cases[0].value == @cases[1].value && @cases[1].value == @cases[2].value
+      player.victory = true
+
+    elsif @cases[3].value == @cases[4].value && @cases[4].value == @cases[5].value
+      player.victory = true
+
+    elsif @cases[6].value == @cases[7].value && @cases[7].value == @cases[8].value
+      player.victory = true
+
+    elsif @cases[0].value == @cases[3].value && @cases[3].value == @cases[6].value
+      player.victory = true
+
+    elsif @cases[1].value == @cases[4].value && @cases[4].value == @cases[7].value
+      player.victory = true
+
+    elsif @cases[2].value == @cases[5].value && @cases[5].value == @cases[8].value
+      player.victory = true
+
+    elsif @cases[2].value == @cases[4].value && @cases[4].value == @cases[6].value
+      player.victory = true
+
+    elsif @cases[0].value == @cases[4].value && @cases[4].value == @cases[8].value
+      player.victory = true
+
+    end
+  end
+
 end
 
 game = Game.new
 
 loop do
   game.go
-  if Player.victory
-    break
-  end
+  break if @p_one.victory || @p_two.victory
 end
