@@ -45,9 +45,9 @@ class Board < BoardCase
     puts "     |     |     "
   end
 
-  def set_case_value(case_number)
-    if is_playable?(case_number)
-      case_number.value = "X"
+  def set_case_value(c_number)
+    if is_playable?(c_number)
+      c_number.value = @pmark
     end
   end
 
