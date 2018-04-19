@@ -34,7 +34,7 @@ Le nombre de parties rémportées est comptabilisé à chaque lancement du jeu !
 
 ## Conditions de test du jeu pour les corrections
 
-**Lancez le fichier TicTacToe.rb à la racine du repo.**
+**Lancez le fichier `TicTacToe.rb` à la racine du repo.**
 
 ## Contributeurs
 
