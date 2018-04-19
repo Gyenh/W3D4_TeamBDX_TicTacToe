@@ -53,8 +53,12 @@ class Game
   def go
     # TO DO : lance la partie
     puts "Let's go !"
+    i = 0
     loop do
+      break if i > 8
       self.turn(@p_one)
+      i +=1
+      puts i
       if @@victory
         puts "\nThere is a winner :"
         @yaya.show
@@ -62,7 +66,10 @@ class Game
         puts "#{@p_two.pname}, U suck"
         break
       end
+      break if i > 8
       self.turn(@p_two)
+      i +=1
+      puts i
       if @@victory
         puts "\nThere is a winner :"
         @yaya.show
@@ -71,7 +78,8 @@ class Game
         break
       end
     end
-
+    @yaya.show
+    puts "Draw bitches!" if @@victory == false
     puts "Try again ? Y/N"
     choice = (gets.chomp).to_s
     if choice == "Y"
