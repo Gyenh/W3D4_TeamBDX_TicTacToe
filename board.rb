@@ -5,7 +5,6 @@ class Player
 @@player = 0
 @@mark = ""
 
-
   attr_accessor :pname, :pmark
 
   def initialize
@@ -28,30 +27,28 @@ class Player
       @pmark = "X"
     end
     @@mark = @pmark
-    puts "#{@pname} jouera avec la marque #{@pmark} !"
+    puts "#{@pname} will play as #{@pmark} !"
   end
 
 end
+
+
 
 class Game
 
   @@victory = false
 
   def initialize
-    #TO DO : créé 2 joueurs, créé un board
     puts "Welcome to the BDX Tic-Tac-Toe ! Have fun with our progZ !"
-    # Créé 2 joueurs
     @p_one = Player.new
     @p_one.infos
     @p_two = Player.new
     @p_two.infos
-    # créé un board de game de 9 cases
-    @yaya = Board.new
+    @board_game = Board.new
 
   end
 
   def go
-    # TO DO : lance la partie
     puts "Let's go !"
     i = 0
     loop do
@@ -61,7 +58,7 @@ class Game
       puts i
       if @@victory
         puts "\nThere is a winner :"
-        @yaya.show
+        @board_game.show
         puts "\nGood game #{@p_one.pname} !"
         puts "#{@p_two.pname}, U suck"
         break
@@ -72,19 +69,19 @@ class Game
       puts i
       if @@victory
         puts "\nThere is a winner :"
-        @yaya.show
+        @board_game.show
         puts "\nGood game #{@p_two.pname} !"
         puts "#{@p_one.pname}, U suck"
         break
       end
     end
-    @yaya.show
+    @board_game.show
     puts "Draw bitches!" if @@victory == false
     puts "Try again ? Y/N"
     choice = (gets.chomp).to_s.capitalize
     if choice == "Y"
       @@victory = false
-      @yaya = Board.new
+      @board_game = Board.new
       self.go
     end
 
@@ -92,10 +89,10 @@ class Game
 
   def turn(player)
     puts "It's #{player.pname}'s turn!"
-    @yaya.show
+    @board_game.show
     @choice = (gets.chomp).to_i
-    @yaya.get_player_choice(@choice, player.pmark, player)
-    if @yaya.victory(player)
+    @board_game.get_player_choice(@choice, player.pmark, player)
+    if @board_game.victory(player)
       @@victory = true
     end
   end
@@ -103,7 +100,9 @@ class Game
 end
 
 
+
 class BoardCase
+
   attr_accessor :name, :value
 
   def initialize(name, value)
@@ -112,6 +111,8 @@ class BoardCase
   end
 
 end
+
+
 
 class Board
 
@@ -131,7 +132,6 @@ class Board
   end
 
   def show
-
     puts "\n     |     |     "
     puts "  #{cases[0].value}  |  #{cases[1].value}  |  #{cases[2].value}  "
     puts "_____|_____|_____"
@@ -141,12 +141,10 @@ class Board
     puts "     |     |     "
     puts "  #{cases[6].value}  |  #{cases[7].value}  |  #{cases[8].value}  "
     puts "     |     |     "
-
   end
 
   def get_player_choice(choice, pmark, player)
     self.set_case_value(choice, pmark, player)
-    # self.show
   end
 
   def set_case_value(choice, pmark, player)
@@ -164,13 +162,10 @@ class Board
     end
   end
 
-  def is_playable?(truc)
-
-    if truc.value.to_i == truc.name
-
+  def is_playable?(cell)
+    if cell.value.to_i == cell.name
       return true
     else
-
       return false
     end
   end
