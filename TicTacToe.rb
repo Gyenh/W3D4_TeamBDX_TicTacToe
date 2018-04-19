@@ -1,5 +1,5 @@
 require 'color_text'
-require_relative 'Classes/Board'       # On effectue le lien avec le fichier de chaque Classe.
+require_relative 'Classes/Board'       # On effectue le lien avec les fichiers de chaque Classe.
 require_relative 'Classes/BoardCase'
 require_relative 'Classes/Game'
 require_relative 'Classes/Player'
