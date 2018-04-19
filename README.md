@@ -28,7 +28,7 @@ Lancement du jeu ! Chacun son tour, chaque joueur sélectionne une case de 1 à 
 
   - Un des joueurs gagne, son compteur de points est incrémenté et le jeu est terminé et propose une nouvelle partie.
 
-  - Aucun des joueurs n'a gagné, l'égalité est délcarée et le jeu est terminé et propose une nouvelle partie.
+  - Aucun des joueurs n'a gagné, l'égalité est déclarée et le jeu est terminé et propose une nouvelle partie.
 
 Le nombre de parties rémportées est comptabilisé à chaque lancement du jeu !
 
