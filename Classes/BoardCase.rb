@@ -1,4 +1,4 @@
-class BoardCase
+class BoardCase                     # Classe qui crée une nouvelle session de jeu
 
   attr_accessor :name, :value
 
