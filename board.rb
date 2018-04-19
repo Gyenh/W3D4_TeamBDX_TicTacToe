@@ -3,6 +3,7 @@ class Player
 @@player = 0
 @@mark = ""
 
+
   attr_accessor :pname, :pmark, :victory
 
   def initialize
@@ -51,16 +52,43 @@ class Game
   def go
     # TO DO : lance la partie
     puts "Let's go !"
-
+    self.turn(@p_one)
+    self.turn(@p_two)
 
   end
 
-  def turn
+  def turn(player)
 
+    puts "It's #{player.pname}'s turn!"
     @yaya.show
-    puts "It's #{@p_one.pname}'s turn!"
-    @yaya.get_player_choice(@)
+    @choice = (gets.chomp).to_i
+    @yaya.get_player_choice(@choice, player.pmark, player)
 
+    if @cases[0].value == @cases[1].value && @cases[1].value == @cases[2].value
+      player.victory = true
+
+    elsif @cases[3].value == @cases[4].value && @cases[4].value == @cases[5].value
+      player.victory = true
+
+    elsif @cases[6].value == @cases[7].value && @cases[7].value == @cases[8].value
+      player.victory = true
+
+    elsif @cases[0].value == @cases[3].value && @cases[3].value == @cases[6].value
+      player.victory = true
+
+    elsif @cases[1].value == @cases[4].value && @cases[4].value == @cases[7].value
+      player.victory = true
+
+    elsif @cases[2].value == @cases[5].value && @cases[5].value == @cases[8].value
+      player.victory = true
+
+    elsif @cases[2].value == @cases[4].value && @cases[4].value == @cases[6].value
+      player.victory = true
+
+    elsif @cases[0].value == @cases[4].value && @cases[4].value == @cases[8].value
+      player.victory = true
+
+    end
     #TO DO : affiche le plateau, demande au joueur il joue quoi,
     # vérifie si un joueur a gagné,
     # passe au joueur suivant si la partie n'est pas finie
@@ -76,14 +104,6 @@ class BoardCase
     @name = name.to_i
     @value = value
   end
-
-  # def is_playable?(c_number)
-  #   if c_number.value.to_i == c_number.name
-  #     return true
-  #   else
-  #     return false
-  #   end
-  # end
 
 end
 
@@ -118,22 +138,40 @@ class Board
 
   end
 
-  def get_player_choice
-
-    @choice = (gets.chomp).to_i
-    self.set_case_value(@choice, @pmark)
-    self.show_board
+  def get_player_choice(choice, pmark, player)
+    self.set_case_value(choice, pmark, player)
+    # self.show
   end
 
-  # def set_case_value(c_number, pmark)
-  #   if is_playable?(c_number)
-  #     c_number.value = pmark
-  #   end
-  # end
+  def set_case_value(choice, pmark, player)
+
+    if is_playable?(@cases[choice-1])
+      @cases[choice-1].value = pmark
+    else
+      puts "Taken ! Please try again !"
+      choice = (gets.chomp).to_i
+      self.set_case_value(choice, pmark, player)
+    end
+  end
+
+  def is_playable?(truc)
+
+    if truc.value.to_i == truc.name
+
+      return true
+    else
+
+      return false
+    end
+  end
 
 end
 
 game = Game.new
 
-game.go
-game.turn
+loop do
+  game.go
+  if Player.victory
+    break
+  end
+end
