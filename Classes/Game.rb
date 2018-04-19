@@ -50,9 +50,10 @@ class Game
   end
 
   def turn(player)
-    puts "It's #{player.pname}'s turn!"
     @choice = 0
     @board_game.show
+    puts "It's #{player.pname}'s turn!"
+    puts "Choose a number between 1 and 9 :"
     unless (1..9).include? @choice
       @choice = (gets.chomp).to_i
     end

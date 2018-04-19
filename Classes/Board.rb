@@ -32,7 +32,6 @@ class Board
   end
 
   def set_case_value(choice, pmark, player)
-
     if is_playable?(@cases[choice-1])
       if pmark == "O"
         @cases[choice-1].value = pmark.red
