@@ -54,9 +54,12 @@ class Game
     @board_game.show
     puts "It's #{player.pname}'s turn!"
     puts "Choose a number between 1 and 9 :"
-    unless (1..9).include? @choice
+    while !((1..9).include?(@choice)) do
       @choice = (gets.chomp).to_i
+      p @choice
+      p @choice.class
     end
+
     @board_game.get_player_choice(@choice, player.pmark, player)
     if @board_game.victory(player)
       @@victory = true
